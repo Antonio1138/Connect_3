@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView counter = (ImageView) view;
 
-        System.out.println(counter.getTag().toString());
+
 
         int tappedCounter = Integer.parseInt(counter.getTag().toString());
 
@@ -74,6 +74,24 @@ public class MainActivity extends AppCompatActivity {
 
                     LinearLayout layout = findViewById(R.id.playAgainLayout);
                     layout.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    boolean gameIsOver = true;
+
+                    for (int counterState : gameState) {
+
+                        if (counterState == 2) gameIsOver = false;
+                    }
+                    if (gameIsOver) {
+
+                        TextView winnerMessage = findViewById(R.id.winnerMessage);
+                        winnerMessage.setText(" It's a draw!");
+
+                        LinearLayout layout = findViewById(R.id.playAgainLayout);
+                        layout.setVisibility(View.VISIBLE);
+
+                    }
 
                 }
             }
