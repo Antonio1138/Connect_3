@@ -3,6 +3,7 @@ package com.antonio.connect3;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     //0 = yellow , 1 = red
     int activePlayer = 0;
+
+    boolean gameIsActive = true;
 
     //2 means unplayed
     int [] gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         int tappedCounter = Integer.parseInt(counter.getTag().toString());
 
-        if (gameState[tappedCounter] == 2) {
+        if (gameState[tappedCounter] == 2 && gameIsActive) {
 
             gameState[tappedCounter] = activePlayer;
 
@@ -54,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                         gameState[winningPosition[1]] == gameState[winningPosition[2]] &&
                         gameState[winningPosition[0]] != 2) {
 
+                    //Someone has won!
+                    gameIsActive = false;
+
                     String winner = "Red";
 
                     if (gameState[winningPosition[0]] == 0){
@@ -61,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         winner = "Yellow";
                     }
 
-                    //Someone has won!
+
 
                     TextView winnerMessage = findViewById(R.id.winnerMessage);
                     winnerMessage.setText(winner + " has won!");
@@ -72,6 +78,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        }
+    }
+
+    public void playAgain(View view) {
+
+        gameIsActive = true;
+
+
+        LinearLayout layout = findViewById(R.id.playAgainLayout);
+        layout.setVisibility(View.INVISIBLE);
+
+        activePlayer = 0;
+
+
+        for (int i = 0; i < gameState.length; i++) {
+
+            gameState[i] = 2;
+        }
+
+        GridLayout gridLayout = findViewById(R.id.gridLayout);
+        for (int i = 0; i < gridLayout.getChildCount(); i++) {
+            ((ImageView) gridLayout.getChildAt(i)).setImageResource(0);
         }
     }
 
