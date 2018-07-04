@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         counter.setImageResource(R.drawable.yellow);
 
-        counter.animate().translationYBy(1000f).setDuration(300);
+        counter.animate().translationYBy(1000f).rotation(3600).setDuration(300);
     }
 
     @Override
